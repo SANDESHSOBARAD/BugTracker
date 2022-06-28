@@ -1,0 +1,29 @@
+<html>
+  <head>
+    {% include "util/bootstrap.html" %}
+    {% load static %}
+<link rel="stylesheet" href="{%static 'index.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class = "jumbotron">
+        <h1>Update</h1>
+        <form method="POST">{% csrf_token %}
+            {{ update_form.as_table }}
+            <tr>
+              <td>
+              <input type="submit" class="btn btn-primary" value = "Update" />
+            </td>
+            <td>
+              <a class="btn btn-warning" href="/myTickets/"> Cancel </a>
+            </td>
+          
+          </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

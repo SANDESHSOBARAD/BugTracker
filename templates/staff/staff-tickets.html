@@ -1,0 +1,62 @@
+<html>
+  <head>
+    {% include "util/bootstrap.html" %}
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap4.min.js">
+
+    <script type="text/javascript"  src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript"  src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"  src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="{%static 'index.css' %}" />
+
+    <script>
+
+        $(document).ready(function () {
+            $('#data-table').DataTable();
+        });
+    </script>
+  </head>
+  <body>
+    {% include "util/nav-staff.html" %}
+
+    <div class="heading">My Tickets</div>
+    <table id="data-table" class="table table-striped table-dark">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Owner</th>
+        <th scope="col">Description</th>
+        <th scope="col">Current Status</th>
+        <th scope="col">Change Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in page_data %}
+    
+    <tr>
+        <td>{{ data.bug_type.bug_type}}</td>
+        {% if data.bug_priority.bug_priority == 'Low' %}
+        <td style="color:rgb(8, 193, 8)">{{ data.bug_priority.bug_priority }}</td>
+        {% elif data.bug_priority.bug_priority == 'Medium' %}
+        <td style="color: rgb(238, 238, 6)">{{ data.bug_priority.bug_priority }}</td>
+        {% else %}
+        <td style="color:red">{{ data.bug_priority.bug_priority }}</td>
+        {% endif %}
+        <td>{{ data.bug_owner.username }}</td>
+        <td>{{ data.bug_desc }}</td>
+        <td>{{ data.bug_status.bug_status }}</td>
+        <td class="text-center align-middle">
+            <a style="padding:0px" class="btn btn-outlined btn-link" href="update/{{data.bug_id}}">
+              Update
+        </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+   
+  </body>
+</html>
